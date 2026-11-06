@@ -1,6 +1,6 @@
 # Sparkle Bitch ✨
 
-✨🌟💫 **Convert** 🖼️🐴 <img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png" alt="Source PNG" width="240" height="240"> ➡️➡️✨ **to** ✨➡️➡️ 🪄 <img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.apng" alt="Converted sparkly PNG" width="240" height="240"> 🌟👀💖💫✨🤯🎆
+✨🌟💫 **Convert** 🖼️🐴🥱<img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png" alt="Source PNG" width="240" height="240"> ➡️➡️✨ **to** ✨➡️➡️ 🪄<img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.apng" alt="Converted sparkly PNG" width="240" height="240"> 🌟👀💖💫✨🤯🎆
 
 A personal **Y2K glitter engine**, a from-scratch clone of the early-2000s
 [Glitterboo](https://glitterboo.com) / Glitterfy / Picasion glitter tools. Two
