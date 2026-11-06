@@ -3,10 +3,11 @@
 
 Convert
 
-![Source PNG](.github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png)
+<img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png" alt="Source PNG" width="240" height="240">
 
-![Converted WebP](.github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.webp)
+to
 
+<img src=".github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.webp" alt="Converted WebP" width="240" height="240">
 
 A personal **Y2K glitter engine**, a from-scratch clone of the early-2000s
 [Glitterboo](https://glitterboo.com) / Glitterfy / Picasion glitter tools. Two
