@@ -1,6 +1,13 @@
 # Sparkle Bitch ✨
 
-A personal **Y2K glitter engine** — a from-scratch clone of the early-2000s
+
+Convert
+[`stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png`](.github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.png)
+to
+[`stunning-hanoverian-horse-with-glossy-coat-under-sunlight.webp`](.github/workflows/example/stunning-hanoverian-horse-with-glossy-coat-under-sunlight.webp).
+
+
+A personal **Y2K glitter engine**, a from-scratch clone of the early-2000s
 [Glitterboo](https://glitterboo.com) / Glitterfy / Picasion glitter tools. Two
 modes:
 
