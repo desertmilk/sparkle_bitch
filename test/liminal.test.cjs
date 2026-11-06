@@ -3,9 +3,9 @@
  * (value at phase 0 == phase 1) so exported GIFs never snap at the seam.
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/anim.js');
-require('../js/liminal.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/anim.ts');
+require('../src/engine/liminal.ts');
 
 let failures = 0;
 const near = (a, b, e) => Math.abs(a - b) <= (e || 1e-9);

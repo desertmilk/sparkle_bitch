@@ -4,8 +4,8 @@
  * spacing/jitter behave, and edge tracing chains along the line.
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/analyze.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/analyze.ts');
 
 let failures = 0;
 function assert(cond, msg) { if (!cond) { failures++; console.error('  ✗ ' + msg); } else { console.log('  ✓ ' + msg); } }

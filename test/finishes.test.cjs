@@ -4,10 +4,10 @@
  * registry headlessly.
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/anim.js');
-require('../js/glitter.js');
-require('../js/finishes.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/anim.ts');
+require('../src/engine/glitter.ts');
+require('../src/engine/finishes.ts');
 
 let failures = 0;
 function assert(c, m) { if (!c) { failures++; console.error('  ✗ ' + m); } else { console.log('  ✓ ' + m); } }

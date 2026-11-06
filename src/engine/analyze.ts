@@ -1,4 +1,4 @@
-/* Sparkle Bitch — analyze.js
+/* Sparkle Bitch — analyze.ts
  * Highlight / feature detection (the "Selection Marker" behaviour).
  * Finds bright, high-contrast points, reduces clusters to well-spaced
  * centres, and samples local colour + size for each — so sparkles match the
@@ -276,7 +276,7 @@
   // Guarantees "Sparkle it" produces something even on flat/dark images.
   function detectAdaptive(img, opts, want) {
     want = want || 24;
-    var o = {};
+    var o: Record<string, any> = {};
     for (var k in opts) o[k] = opts[k];
     var res = detect(img, o);
     if (o.mode === 'scatter') return res;   // thresholds are meaningless there

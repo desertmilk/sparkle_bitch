@@ -1,15 +1,17 @@
-/* Sparkle Bitch — main.js
+/* Sparkle Bitch — main.ts
  * App controller: state, UI wiring, selection tools, live preview, export.
  */
+let startLegacyApp: (() => void) | undefined;
+
 (function () {
   'use strict';
   var U = SB.util, A = SB.analyze, SPK = SB.sparkles, R = SB.render,
       MED = SB.media, EXP = SB.exporter, PRE = SB.presets, GL = SB.glitter, TXT = SB.text, FIN = SB.finishes;
 
-  var $ = function (id) { return document.getElementById(id); };
+  var $ = function (id): any { return document.getElementById(id); };
   var MATTE = '#0a0710';
 
-  var state = {
+  var state: any = {
     mode: 'image',      // 'image' | 'text' | 'liminal'
     source: null,       // active source (points at imageSource or textSource)
     imageSource: null,  // last opened image/gif/video (kept across tab switches)
@@ -536,7 +538,7 @@
       return { text: state.source.textRender, glitterField: state.glitterField, fillTexture: state.source.fillTexture || null,
                finishStack: state.textOpts.finishes && state.textOpts.finishes.length ? state.textOpts.finishes : null };
     }
-    var o = {};
+    var o: Record<string, any> = {};
     if (state.dust) o.dust = state.dust;
     if (state.params.glitterOnImage && state.glitterField) {
       o.glitterField = state.glitterField;
@@ -557,7 +559,7 @@
         : Math.max(300, (state.params.lengthSec || 2) * 1000);
       var phase = state.playing ? ((ts % T) / T) : 0;
       var cmp = state.compare && state.mode === 'image';
-      var o = cmp ? {} : renderExtras();
+      var o: Record<string, any> = cmp ? {} : renderExtras();
       o.matte = currentMatte();
       R.render(vctx, state.source.drawable, cmp ? [] : state.instances, state.params, phase, o);
       if (state.mode === 'image' && !cmp) drawOverlay();
@@ -840,7 +842,7 @@
   }
 
   var LOOKS_KEY = 'sb-looks';
-  function refreshLooks(selectId) {
+  function refreshLooks(selectId?) {
     var sel = $('savedLooks'); sel.innerHTML = '';
     var d = document.createElement('option'); d.value = ''; d.textContent = 'My looks…'; sel.appendChild(d);
     var looks = loadJSON(LOOKS_KEY, {});
@@ -921,7 +923,7 @@
     setStatus(id ? '🌑 ' + SB.liminal.PRESETS[id].label : '🌑 effects off — plain image');
   }
   function syncLiminalControls() {
-    document.querySelectorAll('[data-lim]').forEach(function (el) {
+    document.querySelectorAll<any>('[data-lim]').forEach(function (el) {
       var v = limGet(el.getAttribute('data-lim'));
       if (el.type === 'checkbox') el.checked = !!v;
       else el.value = v;
@@ -945,7 +947,7 @@
     off.addEventListener('click', function () { applyLiminalPreset(''); });
     box.appendChild(off);
     // generic binding: every [data-lim] input writes straight into state.liminal
-    document.querySelectorAll('[data-lim]').forEach(function (el) {
+    document.querySelectorAll<any>('[data-lim]').forEach(function (el) {
       var path = el.getAttribute('data-lim');
       var evt = (el.type === 'checkbox' || el.tagName === 'SELECT') ? 'change' : 'input';
       el.addEventListener(evt, function () {
@@ -964,7 +966,7 @@
       var o = document.createElement('option'); o.value = items[i].id; o.textContent = items[i].label; el.appendChild(o);
     }
   }
-  function bindText(id, key, kind) {
+  function bindText(id, key, kind?) {
     var el = $(id); if (!el) return;
     el.addEventListener(kind === 'change' ? 'change' : 'input', function () {
       var v = el.type === 'checkbox' ? el.checked : (el.type === 'range' ? parseFloat(el.value) : el.value);
@@ -1065,8 +1067,8 @@
     $('glitterFill').checked = !!p.glitterOnImage;
     // custom palette swatches
     $('textPalBase').value = textCustomDef.base;
-    document.querySelectorAll('.textPalFlake').forEach(function (el, i) { el.value = textCustomDef.flakes[i] || '#ffffff'; });
-    document.querySelectorAll('.palSwatch').forEach(function (el, i) { el.value = imageCustomHex[i] || '#ffffff'; });
+    document.querySelectorAll<any>('.textPalFlake').forEach(function (el, i) { el.value = textCustomDef.flakes[i] || '#ffffff'; });
+    document.querySelectorAll<any>('.palSwatch').forEach(function (el, i) { el.value = imageCustomHex[i] || '#ffffff'; });
     // text
     setVal('textInput', t.text); setVal('textFont', t.font); setVal('textSize', t.size);
     setVal('textAlign', t.align); setVal('textLeading', t.leading); setVal('textSpacing', t.letterSpacing);
@@ -1082,7 +1084,7 @@
   }
   function setVal(id, v) { var el = $(id); if (el) el.value = v; }
   function updateAllLabels() {
-    document.querySelectorAll('[data-label-for]').forEach(function (lab) {
+    document.querySelectorAll<any>('[data-label-for]').forEach(function (lab) {
       var el = $(lab.getAttribute('data-label-for'));
       if (el) lab.textContent = el.value;
     });
@@ -1201,7 +1203,7 @@
     $('dustOn').addEventListener('change', function () { state.params.dust = $('dustOn').checked; buildDust(); updateColorUI(); });
 
     // image custom palette swatches
-    document.querySelectorAll('.palSwatch').forEach(function (el, i) {
+    document.querySelectorAll<any>('.palSwatch').forEach(function (el, i) {
       el.addEventListener('input', function () {
         imageCustomHex[i] = el.value;
         saveJSON(IMG_PAL_KEY, imageCustomHex);
@@ -1212,13 +1214,13 @@
     function onTextPal() {
       textCustomDef.base = $('textPalBase').value;
       textCustomDef.flakes = [];
-      document.querySelectorAll('.textPalFlake').forEach(function (el) { textCustomDef.flakes.push(el.value); });
+      document.querySelectorAll<any>('.textPalFlake').forEach(function (el) { textCustomDef.flakes.push(el.value); });
       saveJSON(TXT_PAL_KEY, textCustomDef);
       applyTextCustom();
       buildGlitterField();
     }
     $('textPalBase').addEventListener('input', onTextPal);
-    document.querySelectorAll('.textPalFlake').forEach(function (el) { el.addEventListener('input', onTextPal); });
+    document.querySelectorAll<any>('.textPalFlake').forEach(function (el) { el.addEventListener('input', onTextPal); });
 
     // glitter controls (shared by text mode + image glitter-fill)
     populateGlitterStyleSelect();
@@ -1305,8 +1307,10 @@
     setStatus('Open an image or GIF to start ✨');
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  startLegacyApp = function () {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  };
 
   // expose a little for the e2e test harness
   window.SparkleBitch = {
@@ -1346,3 +1350,8 @@
     }
   };
 })();
+
+export function initializeApp(): void {
+  if (!startLegacyApp) throw new Error('Legacy app controller was not initialized');
+  startLegacyApp();
+}

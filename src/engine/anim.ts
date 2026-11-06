@@ -1,4 +1,4 @@
-/* Sparkle Bitch — anim.js
+/* Sparkle Bitch — anim.ts
  * Loop-closure math. Every animated quantity is a function of phase01
  * (a value in [0,1) representing progress through the loop). Because each
  * uses an INTEGER number of revolutions, the value at phase 0 equals the

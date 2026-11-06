@@ -13,8 +13,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const SB = require('../js/util.js');
-require('../js/gif-encode.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/gif-encode.ts');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(__dirname, 'out');
@@ -70,15 +70,16 @@ async function poll(page, fn, timeout, label) {
   if (!fs.existsSync(OUT)) fs.mkdirSync(OUT, { recursive: true });
   const gifB64 = Buffer.from(makeGifFixture()).toString('base64');
 
-  const server = spawn('python3', ['-m', 'http.server', String(PORT)], { cwd: ROOT, stdio: 'ignore' });
-  await waitServer();
-
-  const browser = await chromium.launch({ executablePath: EXE, headless: true, args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
-  const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
-  const pageErrors = [];
-  page.on('pageerror', e => pageErrors.push(String(e)));
+  const server = spawn('python3', ['-m', 'http.server', String(PORT), '--directory', path.join(ROOT, 'dist')], { cwd: ROOT, stdio: 'ignore' });
+  let browser;
 
   try {
+    await waitServer();
+    browser = await chromium.launch({ executablePath: EXE, headless: true, args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
+    const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    const pageErrors = [];
+    page.on('pageerror', e => pageErrors.push(String(e)));
+
     await page.goto(`http://localhost:${PORT}/index.html`, { waitUntil: 'load' });
     await poll(page, () => !!window.SparkleBitch && !!window.SB, 5000, 'app init');
     ok(true, 'app loaded and engine present');
@@ -1120,7 +1121,7 @@ async function poll(page, fn, timeout, label) {
     failures++; console.error('  ✗ EXCEPTION: ' + e.message);
     try { await page.screenshot({ path: path.join(OUT, 'error.png') }); } catch (_) {}
   } finally {
-    await browser.close();
+    if (browser) await browser.close();
     server.kill('SIGTERM');
   }
 

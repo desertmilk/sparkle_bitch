@@ -1,4 +1,4 @@
-/* Sparkle Bitch — presets.js
+/* Sparkle Bitch — presets.ts
  * Two named looks. Both are just parameter bundles; every slider still
  * overrides freely afterwards. `defaults()` documents the full param shape.
  */

@@ -1,4 +1,4 @@
-/* Sparkle Bitch — media.js
+/* Sparkle Bitch — media.ts
  * Load an image / animated GIF / video into a common "source" descriptor and
  * build the small working buffer that highlight detection runs on.
  */
@@ -31,8 +31,8 @@
     return ctx.getImageData(0, 0, w, h);
   }
 
-  function loadImage(url) {
-    return new Promise(function (res, rej) {
+  function loadImage(url): Promise<HTMLImageElement> {
+    return new Promise<HTMLImageElement>(function (res, rej) {
       var img = new Image();
       img.onload = function () { res(img); };
       img.onerror = function () { rej(new Error('Could not decode image')); };

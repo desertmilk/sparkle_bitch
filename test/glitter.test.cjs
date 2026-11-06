@@ -3,9 +3,9 @@
  * phase 1) and actually animates (not a dead field), all headless in Node.
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/anim.js');
-require('../js/glitter.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/anim.ts');
+require('../src/engine/glitter.ts');
 
 let failures = 0;
 const near = (a, b, e) => Math.abs(a - b) <= (e || 1e-9);

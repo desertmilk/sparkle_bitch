@@ -1,4 +1,4 @@
-/* Sparkle Bitch — finishes.js
+/* Sparkle Bitch — finishes.ts
  * The shiny-text FINISH engine: a pluggable registry of reflective / iridescent
  * / refractive surface effects that fill a letter (or outline) mask, and a
  * compositor that STACKS them — Liquid Chrome + CD Diffraction + Starburst Glare

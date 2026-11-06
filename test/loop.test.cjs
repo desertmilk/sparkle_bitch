@@ -3,10 +3,10 @@
  * that the values actually vary (no dead animation).
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/anim.js');
-require('../js/sparkles.js');
-require('../js/render.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/anim.ts');
+require('../src/engine/sparkles.ts');
+require('../src/engine/render.ts');
 
 let failures = 0;
 const near = (a, b, e) => Math.abs(a - b) <= (e || 1e-9);

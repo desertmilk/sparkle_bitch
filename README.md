@@ -28,15 +28,16 @@ modes:
 
 Everything exports as a **PNG**, **animated GIF**, or **video**.
 
-Everything runs in the browser in plain JavaScript. **No build step, no server,
-no dependencies, no accounts.** It works on a Chromebook, and it works offline.
+The app is built with TypeScript, Preact, and Vite. Image processing and exports
+run locally in the browser; no image uploads, accounts, or runtime services are
+needed. It works on a Chromebook and can work offline once loaded.
 
 ---
 
 ## Use it
 
-**Locally (easiest):** just open `index.html` in a browser — double-click it, or
-drag it onto a browser window. That's it.
+**Locally:** install dependencies with `npm ci`, then run `npm run dev` and open
+the URL Vite prints. To create a production build, run `npm run build`.
 
 **Online / on your phone:** publish to GitHub Pages (see below) and open the URL.
 
@@ -80,20 +81,20 @@ Then:
 
 The pipeline follows the documented Glitterboo behaviour:
 
-1. **Analyze** (`js/analyze.js`) — compute luminance + Sobel contrast on a
+1. **Analyze** (`src/engine/analyze.ts`) — compute luminance + Sobel contrast on a
    downscaled buffer, then pick well-spaced local maxima as sparkle centres,
    sampling each one's local colour and bright-region size.
-2. **Instances** (`js/sparkles.js`) — each centre becomes a sparkle with a
+2. **Instances** (`src/engine/sparkles.ts`) — each centre becomes a sparkle with a
    position, colour, size, shape and animation phase. Sprites are drawn
    procedurally and cached.
-3. **Render** (`js/render.js`) — draw the base, then an additive sparkle layer
+3. **Render** (`src/engine/render.ts`) — draw the base, then an additive sparkle layer
    (screen/lighter blend) with a soft glow, optional hue-shimmer, and twinkle.
    Every animated value is a function of loop phase, so exports loop cleanly.
-4. **Export** (`js/export.js`, `js/gif-encode.js`) — PNG via canvas, animated
+4. **Export** (`src/engine/export.ts`, `src/engine/gif-encode.ts`) — PNG via canvas, animated
    GIF via a self-contained GIF89a encoder (median-cut palette + LZW +
    transparency frame-diff for small files), and video via `MediaRecorder`.
 
-Animated GIFs are decoded with a self-contained decoder (`js/gif-decode.js`)
+Animated GIFs are decoded with a self-contained decoder (`src/engine/gif-decode.ts`)
 so sparkles can be composited over every frame, keeping the original timing.
 
 ---
@@ -129,46 +130,37 @@ uploaded anywhere).
 
 A workflow is already included (`.github/workflows/pages.yml`). One-time setup:
 
-1. Push to the default branch (`main`).
+1. Push to the default branch (`main` or `master`).
 2. Repo **Settings → Pages → Source → "GitHub Actions"**.
-3. It deploys automatically; your URL appears in the Actions run and on the
-   Pages settings page. Open it on your phone and add it to your home screen.
+3. The workflow installs dependencies, builds the Vite site, and deploys `dist`;
+   your URL appears in the Actions run and on the Pages settings page.
 
 ---
 
 ## Develop / test
 
 ```bash
-# codec round-trip, animation + glitter/texture loop-closure (Node, no deps)
-node test/codec.test.cjs
-node test/loop.test.cjs
-node test/glitter.test.cjs   # 40 styles all loop-close (incl. red/black/yellow)
-node test/texture.test.cjs   # uploaded-GIF-fill frame picker is loop-safe
-node test/finishes.test.cjs  # the reflective finish registry + schema
-
-# everything, incl. the browser e2e (needs a Chromium)
-npm install          # dev-only: installs playwright-core (NO bundled browser)
-npm test             # or: node test/e2e.cjs — set CHROMIUM_PATH=/path/to/chrome
+npm ci
+npm run dev       # start the Vite development server
+npm run build     # type-check and create the production site in dist/
+npm run test:unit # run the Node-based engine tests
+npm test          # build + unit and browser e2e tests
 ```
 
-The e2e/demo scripts need a Chromium binary. In this project's environment one
-is pre-installed at `/opt/pw-browsers/chromium`; elsewhere, point
-`CHROMIUM_PATH` at your own Chrome/Chromium (playwright-core does not download
-one).
+The e2e/demo scripts need a Chromium binary. Set `CHROMIUM_PATH` to your own
+Chrome/Chromium if it is not at `/opt/pw-browsers/chromium`.
 
 ---
 
 ## Files
 
 ```
-index.html      app shell            js/analyze.js    highlight detection
-css/style.css   styling              js/sparkles.js   instances + sprites
-js/util.js      rng / colour maths   js/render.js     per-frame compositing
-js/anim.js      loop-closure maths   js/glitter.js    dry-glitter flake engine
-js/presets.js   Classic / Astral     js/text.js       glitter-text letterforms
-js/media.js     load img/gif/txt/tex  js/gif-encode.js GIF89a encoder (+alpha)
-js/export.js    PNG / GIF / video     js/gif-decode.js GIF decoder
-js/main.js      UI + controller      js/finishes.js   stackable shiny finishes
+index.html       app shell
+src/main.tsx     Preact application mount
+src/engine/*.ts  TypeScript image, text, animation, and export engines
+css/style.css    styling
+fonts/           bundled fonts and font styles
+vite.config.ts   Vite build configuration
 ```
 
 No third-party code — the GIF codec, detection, and rendering are all original.

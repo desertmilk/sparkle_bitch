@@ -27,7 +27,7 @@ function waitServer() {
 
 (async () => {
   if (!fs.existsSync(DEMO)) fs.mkdirSync(DEMO, { recursive: true });
-  const server = spawn('python3', ['-m', 'http.server', String(PORT)], { cwd: ROOT, stdio: 'ignore' });
+  const server = spawn('python3', ['-m', 'http.server', String(PORT), '--directory', path.join(ROOT, 'dist')], { cwd: ROOT, stdio: 'ignore' });
   await waitServer();
   const browser = await chromium.launch({ executablePath: EXE, headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage({ viewport: { width: 1200, height: 820 } });

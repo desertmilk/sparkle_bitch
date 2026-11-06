@@ -1,4 +1,4 @@
-/* Sparkle Bitch — sparkles.js
+/* Sparkle Bitch — sparkles.ts
  * Turns detected centres into sparkle "instances", and draws the sprites
  * procedurally (no image assets) into a cache so they can be blitted fast,
  * recoloured and rescaled, every frame.

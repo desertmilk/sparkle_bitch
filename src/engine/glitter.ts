@@ -1,4 +1,4 @@
-/* Sparkle Bitch — glitter.js
+/* Sparkle Bitch — glitter.ts
  * The "dry glitter" engine: a dense field of tiny flakes that flash and
  * twinkle, looping cleanly. Used to fill glitter TEXT and to lay animated
  * glitter over photos (Glitterfy / MySpace / Picasion style).

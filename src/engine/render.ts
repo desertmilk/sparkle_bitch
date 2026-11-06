@@ -1,4 +1,4 @@
-/* Sparkle Bitch — render.js
+/* Sparkle Bitch — render.ts
  * Composite one frame. Four cases, all driven by phase01 (loop-safe):
  *   1. TEXT mode  — glitter-filled letterforms + outline + shadow (transparent bg)
  *   2. LIMINAL    — the Liminal Engine: degrade/haunt the base image, no sprites

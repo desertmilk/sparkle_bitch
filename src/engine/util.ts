@@ -1,4 +1,4 @@
-/* Sparkle Bitch — util.js
+/* Sparkle Bitch — util.ts
  * Small shared helpers: seeded RNG, math, colour conversions.
  * Written to work in the browser (attaches to window.SB) and in Node
  * (module.exports) so the same code can be unit-tested headless.

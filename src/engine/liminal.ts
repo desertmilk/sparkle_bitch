@@ -1,4 +1,4 @@
-/* Sparkle Bitch — liminal.js
+/* Sparkle Bitch — liminal.ts
  * The Liminal Engine: a second render path that degrades reality instead of
  * decorating it. CRT scanlines, drifting DVD moiré, film grain, chromatic
  * aberration, sodium-vapor grades, diffusion bloom, starbursts on real light

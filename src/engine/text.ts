@@ -1,7 +1,7 @@
-/* Sparkle Bitch — text.js
+/* Sparkle Bitch — text.ts
  * Renders glitter-text letterforms. Produces a white letterform MASK (used to
  * clip the animated glitter fill) plus precomputed OUTLINE and SHADOW layers,
- * all the same size and aligned, so render.js just composites them per frame.
+ * all the same size and aligned, so render.ts just composites them per frame.
  *
  * Fonts: web-safe system stacks + a bundled set of open-licensed Y2K fonts
  * (see fonts/fonts.css). Users can also load their own font file at runtime
@@ -12,7 +12,7 @@
   var SB = global.SB = global.SB || {};
 
   // grouped picker: [label, [ [id, label, css-stack], ... ]]
-  var GROUPS = [
+  var GROUPS: Array<[string, Array<[string, string, string]>]> = [
     ['System', [
       ['arialblack', 'Arial Black', "'Arial Black', Gadget, Impact, sans-serif"],
       ['arial', 'Arial', "Arial, 'Helvetica Neue', Helvetica, sans-serif"],
@@ -63,11 +63,11 @@
     ]]
   ];
 
-  var STACKS = {};   // id -> css stack
+  var STACKS: Record<string, string> = {};   // id -> css stack
   (function () { for (var g = 0; g < GROUPS.length; g++) { var fs = GROUPS[g][1]; for (var i = 0; i < fs.length; i++) STACKS[fs[i][0]] = fs[i][2]; } })();
   // legacy ids from earlier versions, kept so old references still resolve
   var ALIAS = { fat: 'arialblack', rounded: 'comicsans', serif: 'georgia', script: 'comicneue', mono: 'courier', fantasy: 'impact', sans: 'arial' };
-  var CUSTOM = [];   // { id, label, stack }
+  var CUSTOM: any[] = [];   // { id, label, stack }
 
   function stackOf(id) {
     if (STACKS[id]) return STACKS[id];
@@ -139,7 +139,7 @@
       return o.outlines.filter(function (l) { return l && l.width > 0; }).map(function (l) {
         var kind = (l.kind === 'glitter' || l.kind === 'texture' || l.kind === 'finish') ? l.kind : 'color';
         // per-outline glitter overrides (density/grain/intensity) pass through as
-        // given; render.js falls back to the global fill values when they're unset.
+        // given; render.ts falls back to the global fill values when they're unset.
         return { width: l.width, kind: kind,
                  color: l.color || '#000000', glitter: l.glitter || 'silver',
                  textureId: l.textureId || null, finish: l.finish || null,

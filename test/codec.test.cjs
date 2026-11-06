@@ -2,9 +2,9 @@
  * Runs in Node (the codec is browser/Node agnostic). No dependencies.
  */
 'use strict';
-const SB = require('../js/util.js');
-require('../js/gif-encode.js');
-require('../js/gif-decode.js');
+const SB = require('../src/engine/util.ts');
+require('../src/engine/gif-encode.ts');
+require('../src/engine/gif-decode.ts');
 
 let failures = 0;
 function assert(cond, msg) { if (!cond) { failures++; console.error('  ✗ ' + msg); } else { console.log('  ✓ ' + msg); } }

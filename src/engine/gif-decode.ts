@@ -1,4 +1,4 @@
-/* Sparkle Bitch — gif-decode.js
+/* Sparkle Bitch — gif-decode.ts
  * Self-contained animated GIF decoder. Parses GIF87a/89a, handles graphic
  * control (delay/transparency/disposal), local colour tables and interlace,
  * decodes LZW, and COALESCES frames into full-size RGBA buffers (applying

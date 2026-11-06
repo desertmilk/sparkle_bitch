@@ -1,4 +1,4 @@
-/* Sparkle Bitch — export.js
+/* Sparkle Bitch — export.ts
  * Renders and encodes the final output: PNG still, animated GIF (loops clean,
  * with optional transparent background for glitter text), and best-effort
  * WebM/MP4. Every frame goes through SB.render.render with the same `renderOpts`
@@ -13,9 +13,9 @@
     var s = Math.min(1, maxLong / Math.max(w, h));
     return { w: Math.max(1, Math.round(w * s)), h: Math.max(1, Math.round(h * s)) };
   }
-  function nextTick() { return new Promise(function (r) { setTimeout(r, 0); }); }
+  function nextTick() { return new Promise<void>(function (r) { setTimeout(r, 0); }); }
   function seekVideo(v, t) {
-    return new Promise(function (res) {
+    return new Promise<void>(function (res) {
       // already there (within a frame) -> no 'seeked' event will fire
       if (Math.abs(v.currentTime - t) < 0.04) return res();
       var settled = false;

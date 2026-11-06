@@ -1,4 +1,4 @@
-/* Sparkle Bitch — gif-encode.js
+/* Sparkle Bitch — gif-encode.ts
  * Self-contained animated GIF89a encoder. No workers, no dependencies, runs
  * in the browser and in Node. Median-cut global palette + optional
  * transparency frame-diff (only changed pixels stored) + variable-width LZW.

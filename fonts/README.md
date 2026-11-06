@@ -26,7 +26,7 @@ node scripts/fetch-fonts.cjs
 ```
 
 It reuses already-downloaded files and regenerates `fonts.css`. After adding a
-family here, also add it to the `GROUPS` table in `js/text.js` so it shows up in
+family here, also add it to the `GROUPS` table in `src/engine/text.ts` so it shows up in
 the picker.
 
 ## Adding a font that isn't on Google Fonts
