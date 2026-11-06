@@ -9,6 +9,7 @@ let startLegacyApp: (() => void) | undefined;
       MED = SB.media, EXP = SB.exporter, PRE = SB.presets, GL = SB.glitter, TXT = SB.text, FIN = SB.finishes;
 
   var $ = function (id): any { return document.getElementById(id); };
+  var view: HTMLCanvasElement, vctx: CanvasRenderingContext2D;
   var MATTE = '#0a0710';
 
   var state: any = {
@@ -42,8 +43,6 @@ let startLegacyApp: (() => void) | undefined;
     playing: true,
     busy: false
   };
-
-  var view = $('view'), vctx = view.getContext('2d');
 
   // ------------------------------------------------------------- persistence
   function loadJSON(key, fallback) {
@@ -1115,6 +1114,13 @@ let startLegacyApp: (() => void) | undefined;
   function scheduleRedetect() { clearTimeout(_rd); _rd = setTimeout(redetect, 120); }
 
   function init() {
+    var canvas = $('view');
+    if (!(canvas instanceof HTMLCanvasElement)) throw new Error('The preview canvas is missing');
+    view = canvas;
+    var context = view.getContext('2d');
+    if (!context) throw new Error('Could not create a 2D context for the preview canvas');
+    vctx = context;
+
     applyTextCustom();   // register the "My palette" glitter style (last in the picker)
 
     // file input + drop
